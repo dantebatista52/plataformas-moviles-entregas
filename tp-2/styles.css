@@ -53,3 +53,8 @@ strong{
 .movies-list3 li:last-child{
     margin-top: 10px;
 }
+
+//Título cambia de color cuando paso el cursor del mouse por arriba
+h1:hover {
+    color: #ff0;
+}
