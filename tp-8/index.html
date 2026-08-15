@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,9 +9,9 @@
 <p>Completar con la implementación de las funciones correspondientes</p>
 
 <script type="text/javascript">
-// Numeros
+// ==================== NUMEROS ====================
 
-// 1- Implementar una función "suma" que retorne la suma de 2 numeros
+// 1- Función Declarada (Clásica)
 function suma(num1, num2) {
     return num1 + num2;
 }
@@ -22,20 +22,18 @@ console.log(suma(4,4)); // 8
 console.log(suma(-10,10)); // 0
 
 
-// 2- Implementar una función "elevarAlCubo" que eleve al cubo un numero
-function elevarAlCubo(num) {
-    return Math.pow(num, 3); // O num ** 3
-}
+// 2- Función Anónima
+const elevarAlCubo = function(num) {
+    return Math.pow(num, 3);
+};
 
 console.log("Resultados de elevarAlCubo():");
 console.log(elevarAlCubo(3)); // 27
 console.log(elevarAlCubo(99)); // 970299
 
 
-// 3- Implementar una función "restoDivisionEntera" para devolver el resto de una división entera entre un dividendo y un divisor
-function restoDivisionEntera(dividendo, divisor) {
-    return dividendo % divisor;
-}
+// 3- Función Flecha
+const restoDivisionEntera = (dividendo, divisor) => dividendo % divisor;
 
 console.log("Resultados de restoDivisionEntera():");
 console.log(restoDivisionEntera(1,3)); // 1
@@ -44,16 +42,14 @@ console.log(restoDivisionEntera(3,3)); // 0
 console.log(restoDivisionEntera(4,3)); // 1
 
 
-// 4- Implementar una función "numeroPi" para devolver el numero PI
-function numeroPi() {
-    return Math.PI;
-}
+// 4- Función Flecha
+const numeroPi = () => Math.PI;
 
 console.log("Resultado de numeroPi():");
 console.log(numeroPi());
 
 
-// 5- Implementar una función "numeroRandom" para devolver un número random (aleatorio)
+// 5- Función Declarada (Clásica)
 function numeroRandom() {
     return Math.random();
 }
@@ -64,10 +60,10 @@ console.log(numeroRandom());
 console.log(numeroRandom());
 
 
-// 6- Implementar una función "numeroRandomDesdeHasta" para devolver un número random entre 2 valores recibidos como parámetros
-function numeroRandomDesdeHasta(min, max) {
-    return Math.random() * (max - min) + min;
-}
+// 6- Función Anónima (Reutiliza numeroRandom)
+const numeroRandomDesdeHasta = function(min, max) {
+    return numeroRandom() * (max - min) + min;
+};
 
 console.log("Resultados de numeroRandomDesdeHasta():");
 console.log(numeroRandomDesdeHasta(1,6));
@@ -75,10 +71,8 @@ console.log(numeroRandomDesdeHasta(2,5));
 console.log(numeroRandomDesdeHasta(3,4));
 
 
-// 7- Implementar una función "esPar" que reciba un número como parámetro y devuelva verdadero si el número es par, o falso si es impar
-function esPar(num) {
-    return num % 2 === 0;
-}
+// 7- Función Flecha (Reutiliza restoDivisionEntera)
+const esPar = (num) => restoDivisionEntera(num, 2) === 0;
 
 console.log("Resultados de esPar():");
 console.log(esPar(4)); // true
@@ -87,10 +81,8 @@ console.log(esPar(0)); // true
 console.log(esPar(-2)); // true
 
 
-// 8- Implementar una función "esPositivo" que reciba un número y devuelva true si el número es positivo, o false si es negativo o cero
-function esPositivo(num) {
-    return num > 0;
-}
+// 8- Función Flecha
+const esPositivo = (num) => num > 0;
 
 console.log("Resultados de esPositivo():");
 console.log(esPositivo(4)); // true
@@ -98,12 +90,12 @@ console.log(esPositivo(-3)); // false
 console.log(esPositivo(0)); // false
 
 
-// 9- Implementar una función "clasificarNumero" que reciba un número y retorne un mensaje indicando si el número es par o impar, y si es positivo o negativo
+// 9- Función Declarada (Reutiliza esPar y esPositivo)
 function clasificarNumero(num) {
-    const paridad = (num % 2 === 0) ? "par" : "impar";
+    const paridad = esPar(num) ? "par" : "impar";
     let signo = "";
 
-    if (num > 0) {
+    if (esPositivo(num)) {
         signo = "positivo";
     } else if (num < 0) {
         signo = "negativo";
@@ -120,12 +112,10 @@ console.log(clasificarNumero(-3)); // "El número -3 es impar y negativo."
 console.log(clasificarNumero(0)); // "El número 0 es par y no positivo."
 
 
-// Cadenas de Caracteres
+// ==================== CADENAS DE CARACTERES ====================
 
-// 10- Implementar una función "transformarMayuscula" que transforme a mayúscula la cadena de caracteres recibida como parámetro
-function transformarMayuscula(cadena) {
-    return cadena.toUpperCase();
-}
+// 10- Función Flecha
+const transformarMayuscula = (cadena) => cadena.toUpperCase();
 
 console.log("Resultados de transformarMayuscula():");
 console.log(transformarMayuscula("Plataformas Móviles"));
@@ -133,7 +123,7 @@ console.log(transformarMayuscula("hola mundo"));
 console.log(transformarMayuscula("abc"));
 
 
-// 11- Implementar una función "primeraLetra" que nos devuelva la inicial de la cadena de caracteres recibida como parámetro
+// 11- Función Declarada (Clásica)
 function primeraLetra(cadena) {
     return cadena.charAt(0);
 }
@@ -144,10 +134,10 @@ console.log(primeraLetra("hola mundo"));
 console.log(primeraLetra("abc"));
 
 
-// 12- Implementar una función "sinPrimeraLetra" que nos devuelva la cadena de caracteres recibida como parámetro sin la primera letra
-function sinPrimeraLetra(cadena) {
+// 12- Función Anónima
+const sinPrimeraLetra = function(cadena) {
     return cadena.slice(1);
-}
+};
 
 console.log("Resultados de sinPrimeraLetra():");
 console.log(sinPrimeraLetra("Plataformas Móviles"));
@@ -155,10 +145,9 @@ console.log(sinPrimeraLetra("hola mundo"));
 console.log(sinPrimeraLetra("abc"));
 
 
-// 13- Implementar una función "primeraLetraMayuscula" que devuelve la cadena de caracteres recibida, pero con su primera letra en mayúscula
-function primeraLetraMayuscula(cadena) {
-    return primeraLetra(cadena).toUpperCase() + sinPrimeraLetra(cadena);
-}
+// 13- Función Flecha (Reutiliza primeraLetra, transformarMayuscula y sinPrimeraLetra)
+const primeraLetraMayuscula = (cadena) => 
+    transformarMayuscula(primeraLetra(cadena)) + sinPrimeraLetra(cadena);
 
 console.log("Resultados de primeraLetraMayuscula():");
 console.log(primeraLetraMayuscula("plataformas móviles"));
@@ -166,10 +155,8 @@ console.log(primeraLetraMayuscula("hola mundo"));
 console.log(primeraLetraMayuscula("abc"));
 
 
-// 14- Implementar una función "terminaCon" que devuelve verdadero o falso si la palabra termina con la terminación recibida
-function terminaCon(cadena, terminacion) {
-    return cadena.endsWith(terminacion);
-}
+// 14- Función Flecha
+const terminaCon = (cadena, terminacion) => cadena.endsWith(terminacion);
 
 console.log("Resultados de terminaCon():");
 console.log(terminaCon("hola", "a")); // true
@@ -178,10 +165,10 @@ console.log(terminaCon("plataformas", "mas")); // true
 console.log(terminaCon("plataformas", "más")); // false
 
 
-// 15- Implementar una función "palabraInvertida" que devuelva la palabra invertida
-function palabraInvertida(cadena) {
+// 15- Función Anónima
+const palabraInvertida = function(cadena) {
     return cadena.split("").reverse().join("");
-}
+};
 
 console.log("Resultados de palabraInvertida():");
 console.log(palabraInvertida("plataformas móviles"));
