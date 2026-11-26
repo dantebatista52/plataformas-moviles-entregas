@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editor de Texto - DOM y JavaScript</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container my-1 my-sm-2 my-md-4 my-lg-5">
+        <h1>Editor de Texto</h1>
+        <div class="card">
+            <div class="card-body">
+                <h2>Texto</h2>
+
+                <p class="texto" id="texto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec elementum auctor libero, vel imperdiet est. Etiam blandit facilisis ex, nec cursus metus pharetra quis. Fusce imperdiet nisl nibh, ac aliquet ante elementum vitae.</p>
+
+                <div class="mb-3">
+                    <label for="input-texto" class="form-label">Editar texto</label>
+                    <input type="text" id="input-texto" class="form-control" placeholder="Escribe aquí para modificar el texto...">
+                </div>
+
+                <div class="mb-3">
+                    <label for="rango-tamano" class="form-label">Tamaño del texto: <span id="valor-tamano">16px</span></label>
+                    <input type="range" id="rango-tamano" class="form-range" min="12" max="40" value="16">
+                </div>
+
+                <hr class="hr">
+
+                <h2>Opciones de Formato</h2>
+                <div class="row">
+                    <div class="col-12 col-md-4 my-1">
+                        <button id="btn-negrita" class="btn d-block w-100 btn-primary" data-formato="negrita">
+                            Bold (Negrita): OFF
+                        </button>
+                    </div>
+                    <div class="col-12 col-md-4 my-1">
+                        <button id="btn-cursiva" class="btn d-block w-100 btn-primary" data-formato="cursiva">
+                            Italic (Cursiva): OFF
+                        </button>
+                    </div>
+                    <div class="col-12 col-md-4 my-1">
+                        <button id="btn-subrayado" class="btn d-block w-100 btn-primary" data-formato="subrayado">
+                            Underline (Subrayado): OFF
+                        </button>
+                    </div>
+                    <div class="col-12 col-md-4 my-1">
+                        <button id="btn-color" class="btn d-block w-100 btn-primary" data-formato="color">
+                            Color de texto: OFF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const parrafo = document.getElementById('texto');
+        const inputTexto = document.getElementById('input-texto');
+        const rangoTamano = document.getElementById('rango-tamano');
+        const valorTamano = document.getElementById('valor-tamano');
+
+        const btnNegrita = document.getElementById('btn-negrita');
+        const btnCursiva = document.getElementById('btn-cursiva');
+        const btnSubrayado = document.getElementById('btn-subrayado');
+        const btnColor = document.getElementById('btn-color');
+
+        const estadoEstilos = {
+            negrita: false,
+            cursiva: false,
+            subrayado: false,
+            color: false
+        };
+
+        // Sincroniza el input inicialmente con el texto actual y actualiza el párrafo al escribir
+        inputTexto.value = parrafo.textContent;
+        inputTexto.addEventListener('input', (e) => {
+            parrafo.textContent = e.target.value;
+        });
+
+        // Modifica el tamaño de fuente en píxeles
+        rangoTamano.addEventListener('input', (e) => {
+            const px = `${e.target.value}px`;
+            parrafo.style.fontSize = px;
+            valorTamano.textContent = px;
+        });
+
+        function actualizarBoton(boton, etiquetaBase, activo) {
+            boton.textContent = `${etiquetaBase}: ${activo ? 'ON' : 'OFF'}`;
+            boton.classList.toggle('btn-primary', !activo);
+            boton.classList.toggle('btn-success', activo);
+        }
+
+        /**
+         * funcionNegrita()
+         * Esta función se ejecuta cuando el usuario selecciona la opción Bold (negrita).
+         */
+        function funcionNegrita() {
+            estadoEstilos.negrita = !estadoEstilos.negrita;
+            parrafo.style.fontWeight = estadoEstilos.negrita ? 'bold' : 'normal';
+            actualizarBoton(btnNegrita, 'Bold (Negrita)', estadoEstilos.negrita);
+        }
+
+        /**
+         * funcionCursiva()
+         * Esta función se ejecuta cuando el usuario selecciona la opción Italic (cursiva).
+         */
+        function funcionCursiva() {
+            estadoEstilos.cursiva = !estadoEstilos.cursiva;
+            parrafo.style.fontStyle = estadoEstilos.cursiva ? 'italic' : 'normal';
+            actualizarBoton(btnCursiva, 'Italic (Cursiva)', estadoEstilos.cursiva);
+        }
+
+        /**
+         * funcionSubrayado()
+         * Esta función se ejecuta cuando el usuario selecciona la opción Underline (subrayado).
+         */
+        function funcionSubrayado() {
+            estadoEstilos.subrayado = !estadoEstilos.subrayado;
+            parrafo.style.textDecoration = estadoEstilos.subrayado ? 'underline' : 'none';
+            actualizarBoton(btnSubrayado, 'Underline (Subrayado)', estadoEstilos.subrayado);
+        }
+
+        /**
+         * funcionColor()
+         * Alterna un color resaltado en el texto mostrado.
+         */
+        function funcionColor() {
+            estadoEstilos.color = !estadoEstilos.color;
+            parrafo.style.color = estadoEstilos.color ? '#0d6efd' : '';
+            actualizarBoton(btnColor, 'Color de texto', estadoEstilos.color);
+        }
+
+        function handlerBoton(e) {
+            // Obtiene el valor del atributo "data-formato" del botón que disparó el evento
+            const funcionBoton = e.target.dataset.formato;
+            switch (funcionBoton) {
+                case 'negrita':
+                    funcionNegrita();
+                    break;
+                case 'cursiva':
+                    funcionCursiva();
+                    break;
+                case 'subrayado':
+                    funcionSubrayado();
+                    break;
+                case 'color':
+                    funcionColor();
+                    break;
+            }
+        }
+
+        document.querySelectorAll('button.btn').forEach(e => e.addEventListener('click', handlerBoton));
+    </script>
+</body>
+</html>
